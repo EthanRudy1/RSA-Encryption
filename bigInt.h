@@ -72,8 +72,28 @@ bigInt add(bigInt a, bigInt b){
         l1 = l2;
         l2 = lenTemp;
     }
-    cout << num1 << ": " << l1 << endl;
-    cout << num2 << ": " << l2 << endl;
-    bigInt t = bigInt(0);
-    return t;
+    int r = 0;
+    int pos2 = l2 - 1;
+    for (int i = l1 - 1; i >= 0; i--){
+        string d1 = num1.substr(i, 1);
+        string d2;
+        if (pos2 >= 0){
+            d2 =  to_string(stoi(num2.substr(pos2, 1)) + r);
+        } else {
+            d2 = to_string(stoi("0") + r);
+        }
+        int digiSum = stoi(d1) + stoi(d2);
+        if (to_string(digiSum).length() > 1){
+            string t = to_string(digiSum);
+            r = stoi(t.substr(0, t.length() - 1));
+            string subDigi = t.substr(t.length() - 1, 1);
+            total = subDigi + total;
+        } else {
+            total = to_string(digiSum) + total;
+            r = 0;
+        }
+        pos2--;
+    }
+    bigInt sum = bigInt(total);
+    return sum;
 }
