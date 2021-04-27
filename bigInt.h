@@ -189,6 +189,7 @@ bigInt mult(bigInt a, bigInt b){
 		}
 		bigInt col = bigInt(colSum);
 		total = add(total, col);
+		zerCount++;
 	}
 	if (r > 0){
 		total = bigInt(to_string(r) + total.toString());
@@ -198,23 +199,22 @@ bigInt mult(bigInt a, bigInt b){
 
 bigInt div(bigInt a, bigInt b){
 
-
-
 	bigInt sad = bigInt(0);
 	return sad;
 }
 
 bigInt mod(bigInt a, bigInt b){
 
-
-
 	bigInt sad = bigInt(0);
 	return sad;
 }
-
+// Takes the value of bigInt "a" and raises it to the power of int "b"
 bigInt pow(bigInt a, int b){
-	bigInt sad = bigInt("0");
-	return sad;
+	bigInt ans = a;
+	for (int i = 1; i < b; i++){
+		ans = mult(ans, a);
+	}
+	return ans;
 }
 // Tests if two bigInts are of equal value
 bool equals(bigInt a, bigInt b){
