@@ -56,6 +56,7 @@ bigInt mult(bigInt a, bigInt b);
 bigInt div(bigInt a, bigInt b);
 bigInt mod(bigInt a, bigInt b);
 bigInt pow(bigInt a, int b);
+bigInt factorial(bigInt a);
 bool equals(bigInt a, bigInt b);
 bool gThan(bigInt a, bigInt b);
 bool lThan(bigInt a, bigInt b);
@@ -215,6 +216,17 @@ bigInt pow(bigInt a, int b){
 		ans = mult(ans, a);
 	}
 	return ans;
+}
+
+bigInt factorial(bigInt a){
+	bigInt i = a;
+	bigInt s = bigInt(1);
+	while (gThan(i, bigInt(2))){
+		s = mult(s, i);
+		i = sub(i, bigInt(1));
+	}
+	//bigInt sad = bigInt(0);
+	return s;
 }
 // Tests if two bigInts are of equal value
 bool equals(bigInt a, bigInt b){
