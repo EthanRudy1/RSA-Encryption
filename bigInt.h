@@ -1,3 +1,10 @@
+/**
+	BigInt: Creates and allows numerical 
+		operations for the BigInt opject
+	@file BigInt.h
+	@Author Ethan Rudy
+	@Version 0.7 4/28/20
+*/
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -5,63 +12,146 @@
 
 using namespace std;
 
-class bigInt{
+/**
+	BigIn class and constructor declaration
+*/
+class BigInt{
     public:
         string num;
-        /*
-        Constructors: (in order)
-        - Default constructor
-        - Integer constructor
-        - Double constructor
-        - String constructor
-        */
-        bigInt(){
+		// Defualt constructor
+        BigInt(){
             num = "0";
         }
-        bigInt(int n){
+		// Integer constructor
+        BigInt(int n){
             num = to_string(n);
         }
-        bigInt(double n){
+		// Double constructor
+        BigInt(double n){
             num = to_string((int)n);
         }
-        bigInt(string n){
+		// String constructor
+        BigInt(string n){
             num = n;
         }
         /*
-        To string
-        */
+			Returns a string value of a BigInt object
+			@return string value of selected BigInt
+		*/
         string toString(){
             return num;
         }
         /*
-        Mutator methods: (in order)
-        - Passing value as a stirng
-        - Passing value as an integer
-        - Passing a value as a double
-        */
+	`		Modifies the value of the selected BigInt
+			@param string value being inserted
+		*/
         void setVal(string n){
             num = n;
         }
+		/*
+	`		Modifies the value of the selected BigInt
+			@param int value being inserted
+		*/
         void setVal(int n){
             num = n;
         }
+		/*
+	`		Modifies the value of the selected BigInt
+			@param double value being inserted
+		*/
         void setVal(double n){
             num = (int)n;
         }
 };
+/*
+	Adds the values of two BigInt objects
+	@param:
+		- a: First BigInt
+		- b: Second BigInt
+	@return: The sum of "a" and "b"
+*/
+BigInt add(BigInt a, BigInt b);
+/*
+	Subtracts the values of two BigInt objects
+	@param:
+		- a: First BigInt
+		- b: Second BigInt
+	@return: The difference of "a" and "b"
+*/
+BigInt sub(BigInt a, BigInt b);
+/*
+	Multiplies the values of two BigInt objects
+	@param:
+		- a: First BigInt
+		- b: Second BigInt
+	@return: The product of "a" and "b"
+*/
+BigInt mult(BigInt a, BigInt b);
+/*
+	Divides the values of two BigInt objects
+	@param:
+		- a: First BigInt
+		- b: Second BigInt
+	@return: The quotient of "a" and "b"
+*/
+BigInt div(BigInt a, BigInt b);
+/*
+	Modulos the values of two BigInt objects
+	@param:
+		- a: First BigInt
+		- b: Second BigInt
+	@return: "a" modulos "b"
+*/
+BigInt mod(BigInt a, BigInt b);
+/*
+	Calculates the value of a BigInteger to the power of an int 
+	@param:
+		- a: First BigInt
+		- b: Integer power that "a" is being raised too
+	@return: "a" to the power of "b"
+*/
+BigInt pow(BigInt a, int b);
+/*
+	Calculates the value of BigInt!
+	@param:
+		- a: First BigInt
+	@return: The sum of "a" and "b"
+*/
+BigInt factorial(BigInt a);
+/*
+	Calculates the square root of a
+	@param:
+		- a: First BigInt
+	@return: The square root of "a"
+*/
+BigInt sqrt(BigInt a);
+/*
+	Tests if the value of two BigInts are equal
+	@param:
+		- a: First BigInt
+		- b: Second BigInt
+	@return: If the two values are equal
+*/
+bool equals(BigInt a, BigInt b);
+/*
+	Tests if the value of the first BigInt is greater than the second's
+	@param:
+		- a: First BigInt
+		- b: Second BigInt
+	@return: If "a"'s value is greater than "b"'s
+*/
+bool gThan(BigInt a, BigInt b);
+/*
+	Tests if the value of the first BigInt is less than the second's
+	@param:
+		- a: First BigInt
+		- b: Second BigInt
+	@return: If "a"'s vlaue is less than "b"'s
+*/
+bool lThan(BigInt a, BigInt b);
 
-bigInt add(bigInt a, bigInt b);
-bigInt sub(bigInt a, bigInt b);
-bigInt mult(bigInt a, bigInt b);
-bigInt div(bigInt a, bigInt b);
-bigInt mod(bigInt a, bigInt b);
-bigInt pow(bigInt a, int b);
-bigInt factorial(bigInt a);
-bool equals(bigInt a, bigInt b);
-bool gThan(bigInt a, bigInt b);
-bool lThan(bigInt a, bigInt b);
-// Adds the value of two bigInts
-bigInt add(bigInt a, bigInt b){
+// Adds the values of two BigInt objects
+BigInt add(BigInt a, BigInt b){
     string total = "";
     string num1 = a.toString();
     string num2 = b.toString();
@@ -100,11 +190,12 @@ bigInt add(bigInt a, bigInt b){
 	if (r > 0){
 		total = to_string(r) + total;
 	}
-    bigInt sum = bigInt(total);
+    BigInt sum = BigInt(total);
     return sum;
 }
-// Subtracts the value of two bigInts
-bigInt sub(bigInt a, bigInt b){
+
+// Subtracts the values of two BigInt objects
+BigInt sub(BigInt a, BigInt b){
 	string num1 = a.toString();
 	string num2 = b.toString();
 	bool flag = false;
@@ -149,12 +240,13 @@ bigInt sub(bigInt a, bigInt b){
 	if (flag){
 		total = "-" + total;
 	}
-	bigInt ans = bigInt(total);
+	BigInt ans = BigInt(total);
 	return ans;
 }
-// Multiplies the value of two bigInts
-bigInt mult(bigInt a, bigInt b){
-	bigInt total = (0);
+
+// Multiplies the values of two BigInt objects
+BigInt mult(BigInt a, BigInt b){
+	BigInt total = (0);
 	string num1 = a.toString();
 	string num2 = b.toString();
 	int l1 = num1.length();
@@ -188,48 +280,59 @@ bigInt mult(bigInt a, bigInt b){
 				r = 0;
 			}
 		}
-		bigInt col = bigInt(colSum);
+		BigInt col = BigInt(colSum);
 		total = add(total, col);
 		zerCount++;
 	}
 	if (r > 0){
-		total = bigInt(to_string(r) + total.toString());
+		total = BigInt(to_string(r) + total.toString());
 	}
 	return total;
 }
 
-bigInt div(bigInt a, bigInt b){
+// Divides the values of two BigInt objects
+BigInt div(BigInt a, BigInt b){
 
-	bigInt sad = bigInt(0);
+	BigInt sad = BigInt(0);
 	return sad;
 }
 
-bigInt mod(bigInt a, bigInt b){
+// Calculates the value of a BigInteger to the power of an int 
+BigInt mod(BigInt a, BigInt b){
 
-	bigInt sad = bigInt(0);
+	BigInt sad = BigInt(0);
 	return sad;
 }
-// Takes the value of bigInt "a" and raises it to the power of int "b"
-bigInt pow(bigInt a, int b){
-	bigInt ans = a;
+
+// Calculates the value of a BigInteger to the power of an int 
+BigInt pow(BigInt a, int b){
+	BigInt ans = a;
 	for (int i = 1; i < b; i++){
 		ans = mult(ans, a);
 	}
 	return ans;
 }
 
-bigInt factorial(bigInt a){
-	bigInt i = a;
-	bigInt s = bigInt(1);
-	while (gThan(i, bigInt(2))){
+// Calculates the value of BigInt!
+BigInt factorial(BigInt a){
+	BigInt i = a;
+	BigInt s = BigInt(1);
+	while (gThan(i, BigInt(2))){
 		s = mult(s, i);
-		i = sub(i, bigInt(1));
+		i = sub(i, BigInt(1));
 	}
-	//bigInt sad = bigInt(0);
+	//BigInt sad = BigInt(0);
 	return s;
 }
-// Tests if two bigInts are of equal value
-bool equals(bigInt a, bigInt b){
+
+// Calculates the square root of a
+BigInt sqrt(BigInt a){
+	BigInt sad = BigInt(0);
+	return sad;
+}
+
+// Tests if the value of two BigInts are equal
+bool equals(BigInt a, BigInt b){
 	if (a.toString().length() != b.toString().length()){
 		return false;
 	}
@@ -242,8 +345,9 @@ bool equals(bigInt a, bigInt b){
 	}
 	return true;
 }
-// Tests if the the bigInt "a" is greater than bigInt "b"
-bool gThan(bigInt a, bigInt b){
+
+// Tests if the value of the first BigInt is greater than the second's
+bool gThan(BigInt a, BigInt b){
 	if (a.toString().length() > b.toString().length()){
 		return true;
 	} else if (a.toString().length() < b.toString().length()){
@@ -261,8 +365,9 @@ bool gThan(bigInt a, bigInt b){
 	}
 	return true;
 }
-// Tests if the bigInt "a" is less than bigInt "b"
-bool lThan(bigInt a, bigInt b){
+
+// Tests if the value of the first BigInt is less than the second's
+bool lThan(BigInt a, BigInt b){
 	if (a.toString().length() < b.toString().length()){
 		return true;
 	} else if (a.toString().length() > b.toString().length()){
