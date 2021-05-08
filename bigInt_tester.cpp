@@ -6,12 +6,15 @@
 */
 #include <iostream>
 #include "BigInt.h"
+#include <chrono>
 
 using namespace std;
+using namespace chrono;
 
 int main() {
+	auto start = high_resolution_clock::now();
 	BigInt num1 = BigInt("10");
-	BigInt num2 = BigInt("12");
+	BigInt num2 = BigInt("75598");
 	cout << "Showcase: " << num1.toString() << " and " << num2.toString() << endl;
 	cout << "Adding: " << endl;
 	cout << add(num1, num2).toString() << endl;
@@ -23,4 +26,8 @@ int main() {
 	cout << pow(num1, 2).toString() << endl;
 	cout << "Factorial: (num1)" << endl;
 	cout << factorial(num1).toString() << endl;
+	auto end = high_resolution_clock::now();
+	auto dura = duration_cast<milliseconds>(end - start);
+	cout << "Found in " << dura.count() << " milliseconds" << endl;
+	//cout << div(BigInt("100"), BigInt("2")).toString() << endl;
 }
