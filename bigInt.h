@@ -33,7 +33,12 @@ class BigInt{
         }
 		// String constructor
         BigInt(string n){
-            num = n;
+			num = n;
+			for (int i = 0; i < n.length(); i++){
+				if (int(n[i]) < 48 || int(n[i]) > 57){
+					num = "0";
+				}
+			}
         }
         /*
 			Returns a string value of a BigInt object
@@ -48,6 +53,11 @@ class BigInt{
 		*/
         void setVal(string n){
             num = n;
+			for (int i = 0; i < n.length(); i++){
+				if (int(n[i]) < 48 || int(n[i]) > 57){
+					num = "0";
+				}
+			}
         }
 		/*
 	`		Modifies the value of the selected BigInt
@@ -238,28 +248,21 @@ BigInt sub(BigInt a, BigInt b){
 				int arr[n1.length()];
 				for (int t = 0; t < pos1; t++){
 					arr[t] = stoi(n1.substr(t, 1));
-					//cout << arr[t] << endl;
 				}
 				bool zFlag = false;
 				int nonZPos;
-				//cout << sizeof(arr)/sizeof(arr[0]) << endl;
 				for (int z = sizeof(arr)/sizeof(arr[0]) - 1; z >= 0; z--){
-					//cout << z << ": " << arr[z] << endl;
 					if (arr[z] == 0){
 						arr[z] = 9;
 						zFlag = true;
 					} else {
 						nonZPos = z;
 					}
-					//cout << z << endl;
-					//cout << arr[z] << endl;
 				}
-				//cout << zFlag << endl;
 				if (zFlag == true){
 					arr[nonZPos] = arr[nonZPos] - 1;
 				}
 				for (int l = 0; l < sizeof(arr)/sizeof(arr[0]); l++){
-					//cout << l << ": "<< arr[l] << endl;
 				}
 				string p1 = "";
 				for (int l = 0; l < sizeof(arr)/sizeof(arr[0]); l++){
@@ -267,7 +270,6 @@ BigInt sub(BigInt a, BigInt b){
 				}
 				n1 = p1 + "9" + n1.substr(pos1, n1.length() - pos1); 
 			} else {
-				//Just carrying once
 				n1 = n1.substr(0, pos1 - 1) 
 				 + to_string(stoi(n1.substr(pos1 - 1, 1)) - 1) 
 				 + n1.substr(pos1, n1.length() - pos1);
@@ -363,16 +365,10 @@ BigInt pow(BigInt a, int b){
 
 // Calculates the value of BigInt!
 BigInt factorial(BigInt a){
-	if (a.toString() == "0"){
-		return BigInt(0);
+	if (equals(a, BigInt(0))){
+		return BigInt(1);
 	}
-	BigInt i = a;
-	BigInt s = BigInt(1);
-	while (gThan(i, BigInt(0))){
-		s = mult(s, i);
-		i = sub(i, 1);
-	}
-	return s;
+	return mult(a, factorial(sub(a, BigInt(1))));
 }
 
 // Calculates the square root of a
