@@ -8,12 +8,13 @@
 #include <iostream>
 #include <string>
 #include <string.h>
+#include <vector>
 #include <algorithm>
 
 using namespace std;
 
 /**
-	BigIn class and constructor declaration
+	BigInt class and constructor declaration
 */
 class BigInt{
     public:
@@ -90,8 +91,8 @@ BigInt mult(BigInt a, BigInt b);
 /*
 	Divides the values of two BigInt objects
 	@param:
-		- a: First BigInt
-		- b: Second BigInt
+		- a: dividend
+		- b: divisor
 	@return: The quotient of "a" and "b"
 */
 BigInt div(BigInt a, BigInt b);
@@ -125,6 +126,15 @@ BigInt factorial(BigInt a);
 	@return: The square root of "a"
 */
 BigInt sqrt(BigInt a);
+/*
+	Compares the values of two BigInts
+	@param Two BigInts to be compared
+	@return
+		- 1: a > b
+		- 2: b > a
+		- 0: a = b
+*/
+int compare(BigInt a, BigInt b);
 /*
 	Tests if the value of two BigInts are equal
 	@param:
@@ -190,54 +200,93 @@ BigInt add(BigInt a, BigInt b){
 	if (r > 0){
 		total = to_string(r) + total;
 	}
-    BigInt sum = BigInt(total);
+	BigInt sum = BigInt(total);
     return sum;
 }
 
 // Subtracts the values of two BigInt objects
 BigInt sub(BigInt a, BigInt b){
-	string num1 = a.toString();
-	string num2 = b.toString();
+	if (equals(a, b)){
+		return 0;
+	}
+	BigInt temp = BigInt(0);
+	string n1, n2;
 	bool flag = false;
 	if (lThan(a, b)){
+		n2 = a.toString();
+		n1 = b.toString();
 		flag = true;
-		num1 = b.toString();
-		num2 = a.toString();
+	} else {
+		n1 = a.toString();
+		n2 = b.toString();
 	}
+	int pos1 = n1.length() - 1;
+	int pos2 = n2.length() - 1;
 	string total = "";
-	int pos = num2.length() - 1;
-	for (int i = num1.length() - 1; i >= 0; i--){
-		int digi1 = stoi(num1.substr(i, 1));
-		int digi2;
-		if (pos >= 0){
-			digi2 = stoi(num2.substr(pos, 1));
+	while (pos1 >= 0){
+		int d1 = stoi(n1.substr(pos1, 1));
+		int d2;
+		if (pos2 < 0){
+			d2 = 0;
 		} else {
-			digi2 = 0;
+			d2 = stoi(n2.substr(pos2, 1));
 		}
-		pos--;
-		int diff;
-		if (digi1 > digi2){
-			diff = digi1 - digi2;
-		} else if (digi1 == digi2){
-			diff = 0;
+		if (d1 >= d2){
+			total = to_string(d1 - d2) + total;
 		} else {
-			num1 = num1.substr(0, i - 1) + to_string(stoi(num1.substr(i - 1, 1)) - 1) + num1.substr(i, num1.length() - i);
-			digi1 += 10;
-			diff = digi1 - digi2;
+			if (stoi(n1.substr(pos1 - 1, 1)) == 0){
+				int arr[n1.length()];
+				for (int t = 0; t < pos1; t++){
+					arr[t] = stoi(n1.substr(t, 1));
+					//cout << arr[t] << endl;
+				}
+				bool zFlag = false;
+				int nonZPos;
+				//cout << sizeof(arr)/sizeof(arr[0]) << endl;
+				for (int z = sizeof(arr)/sizeof(arr[0]) - 1; z >= 0; z--){
+					//cout << z << ": " << arr[z] << endl;
+					if (arr[z] == 0){
+						arr[z] = 9;
+						zFlag = true;
+					} else {
+						nonZPos = z;
+					}
+					//cout << z << endl;
+					//cout << arr[z] << endl;
+				}
+				//cout << zFlag << endl;
+				if (zFlag == true){
+					arr[nonZPos] = arr[nonZPos] - 1;
+				}
+				for (int l = 0; l < sizeof(arr)/sizeof(arr[0]); l++){
+					//cout << l << ": "<< arr[l] << endl;
+				}
+				string p1 = "";
+				for (int l = 0; l < sizeof(arr)/sizeof(arr[0]); l++){
+					p1 += to_string(arr[l]);
+				}
+				n1 = p1 + "9" + n1.substr(pos1, n1.length() - pos1); 
+			} else {
+				//Just carrying once
+				n1 = n1.substr(0, pos1 - 1) 
+				 + to_string(stoi(n1.substr(pos1 - 1, 1)) - 1) 
+				 + n1.substr(pos1, n1.length() - pos1);
+			}
+			d1 += 10;
+			total = to_string(d1 - d2) + total;
 		}
-		total = to_string(diff) + total; 
+		pos1--;
+		pos2--;
 	}
-	int p = 0;
+	int i = 0;
 	while (true){
-		if (total.substr(p, 1) == "0"){
-			total.erase(p, 1);
-			p--;
+		if (total.substr(i, 1) == "0"){
+			total = total.substr(i + 1, total.length() - i);
 		} else {
 			break;
 		}
-		p++;
 	}
-	if (flag){
+	if (flag == true){
 		total = "-" + total;
 	}
 	BigInt ans = BigInt(total);
@@ -292,7 +341,6 @@ BigInt mult(BigInt a, BigInt b){
 
 // Divides the values of two BigInt objects
 BigInt div(BigInt a, BigInt b){
-
 	BigInt sad = BigInt(0);
 	return sad;
 }
@@ -315,13 +363,15 @@ BigInt pow(BigInt a, int b){
 
 // Calculates the value of BigInt!
 BigInt factorial(BigInt a){
+	if (a.toString() == "0"){
+		return BigInt(0);
+	}
 	BigInt i = a;
 	BigInt s = BigInt(1);
-	while (gThan(i, BigInt(2))){
+	while (gThan(i, BigInt(0))){
 		s = mult(s, i);
-		i = sub(i, BigInt(1));
+		i = sub(i, 1);
 	}
-	//BigInt sad = BigInt(0);
 	return s;
 }
 
@@ -331,57 +381,47 @@ BigInt sqrt(BigInt a){
 	return sad;
 }
 
-// Tests if the value of two BigInts are equal
-bool equals(BigInt a, BigInt b){
-	if (a.toString().length() != b.toString().length()){
-		return false;
+int compare(BigInt a, BigInt b){
+	if (a.toString().length() > b.toString().length()){
+		return 1;
 	}
+	if (b.toString().length() > a.toString().length()){
+		return 2;
+	}
+	int r = 0;
 	for (int i = 0; i < a.toString().length(); i++){
-		int d1 = stoi(a.toString().substr(i,1));
-		int d2 = stoi(b.toString().substr(i,1));
-		if (d1 != d2){
-			return false;
+		if (a.toString().substr(i, 1) > b.toString().substr(i, 1)){
+			r = 1;
+			break;
+		}
+		if (b.toString().substr(i, 1) > a.toString().substr(i, 1)){
+			r = 2;
+			break;
 		}
 	}
-	return true;
+	return r;
+}
+
+// Tests if the value of two BigInts are equal
+bool equals(BigInt a, BigInt b){
+	if (compare(a, b) == 0){
+		return true;
+	}
+	return false;
 }
 
 // Tests if the value of the first BigInt is greater than the second's
 bool gThan(BigInt a, BigInt b){
-	if (a.toString().length() > b.toString().length()){
-		return true;
-	} else if (a.toString().length() < b.toString().length()){
-		return false;
-	}
-	for (int i = 0; i < a.toString().length(); i++){
-		int d1 = stoi(a.toString().substr(i, 1));
-		int d2 = stoi(b.toString().substr(i, 1));
-		if (d1 < d2){
-			return false;
-		}
-	}
-	if (!equals(a, b)){
+	if (compare(a, b) == 1){
 		return true;
 	}
-	return true;
+	return false;
 }
 
 // Tests if the value of the first BigInt is less than the second's
 bool lThan(BigInt a, BigInt b){
-	if (a.toString().length() < b.toString().length()){
-		return true;
-	} else if (a.toString().length() > b.toString().length()){
-		return false;
-	}
-	for (int i = 0; i < b.toString().length(); i++){
-		int d1 = stoi(a.toString().substr(i, 1));
-		int d2 = stoi(b.toString().substr(i, 1));
-		if (d1 > d2){
-			return false;
-		}
-	}
-	if (!equals(a, b)){
+	if (compare(a, b) == 2){
 		return true;
 	}
-	return true;
+	return false;
 }
