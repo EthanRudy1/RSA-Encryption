@@ -16,7 +16,7 @@ using namespace std;
 class BigInt{
 	private:
 		string num;
-
+		bool negative = false;
 	public:
 		// Default constructor
 		BigInt(){
@@ -25,10 +25,16 @@ class BigInt{
 		// Integer constructor
 		BigInt(int n){
 			num = to_string(n);
+			if (to_string(n)[0] == '-'){
+				negative = true;
+			}
 		}
 		// Double constructor
 		BigInt(double n){
 			num = to_string((int)n);
+			if (to_string(n)[0] == '-'){
+				negative = true;
+			}
 		}
 		// String constructor
 		BigInt(string n){
@@ -38,18 +44,27 @@ class BigInt{
 					num = "0";
 				}
 			}
+			if (n[0] == '-'){
+				negative = true;
+			}
 		}
 		/*
 			Sets the selected big into the the value of n
 		*/
 		void setVal(int n){
 			num = to_string(n);
+			if (to_string(n)[0] == '-'){
+				negative = true;
+			}
 		}
 		/*
 			Sets the selected big into the the value of n
 		*/
 		void setVal(double n){
 			num = to_string((int)n);
+			if (to_string(n)[0] == '-'){
+				negative = true;
+			}
 		}
 		/*
 			Sets the selected big into the the value of n
@@ -61,13 +76,18 @@ class BigInt{
 					num = "0";
 				}
 			}
+			if (n[0] == '-'){
+				negative = true;
+			}
 		}
+
 		/*
 			Returns the string value of selected BigInt
 		*/
 		string toString(){
 			return num;
 		}
+
 		/*
 			Returns the int value of the selected BigInt's length
 		*/
@@ -77,6 +97,358 @@ class BigInt{
 
 		//YOU ARE MY FRIEND WOOOOOOOAAAAAAAAAAAAH
 		friend ostream& operator<< (ostream&, const BigInt&);
+
+		///// EQUAL /////
+
+		/*
+			Detects if the value of two BigInts are equal
+			@param:
+				- BigInt a: Second value to be tested
+			@return: If the values are equal
+		*/
+		bool operator==(const BigInt& a){
+			string num1 = num;
+			string num2 = a.num;
+			if (num1.length() != num2.length()){
+				return false;
+			}
+			for (int i = 0; i < num1.length(); i++){
+				if (num1[i] != num2[i]){
+					return false;
+				}
+			}
+			return true;
+		}
+
+		/*
+			Detects if the value of a BigInt and a int are equal
+			@param:
+				- int a: Second value to be tested
+			@return: If the values are equal
+		*/
+		bool operator==(const int& a){
+			return operator==(BigInt(a));
+		}
+
+		/*
+			Detects if the value of a BigInt and a double are equal
+			@param:
+				- double a: Second value to be tested
+			@return: If the values are equal
+		*/
+		bool operator==(const double& a){
+			string num1 = num;
+			string num2 = to_string(a); // Including decimals
+			string tNum2 = to_string((int)a); // Without decimals
+			if (num1.length() != tNum2.length()){
+				return false;
+			} else {
+				int ind = num2.find('.', 0);
+				if (stoi(num2.substr(ind + 1)) > 0){
+					return false;
+				}
+			}
+			for (int i = 0; i < num1.length(); i++){
+				if (num1[i] != tNum2[i]){
+					return false;
+				}
+			}
+			return true;
+		}
+
+		/*
+			Detects if the value of a BigInt and a string are equal
+			@param: 
+				- string a: Second value to be tested
+			@return: If the values are equal
+		*/
+		bool operator==(const string& a){
+			return operator==(BigInt(a));
+		}
+		
+		///// LESS THAN /////
+
+		/*
+			Detects if a value of a BigInt is less than the selected
+			@param:
+				- BigInt a: Second value to be tested
+			@return: if the selected is less than a
+		*/
+		bool operator<(const BigInt& a){
+			string num1 = num;
+			string num2 = a.num;
+			if (num1 == num2){
+				return false;
+			}
+			if (!negative && a.negative){
+				return false;
+			} else if (negative && !a.negative){
+				return true;
+			} else if (!negative && !a.negative){
+				if (num1.length() < num2.length()){
+					return true;
+				} else if (num2.length() < num1.length()){
+					return false;
+				} else {
+					for (int i = 0; i < num1.length(); i++){
+						if (num1[i] > num2[i]){
+							return false;
+						}
+					}
+				}
+			} else if (negative && a.negative){
+				if (num1.length() > num2.length()){
+					return true;
+				} else if (num2.length() < num1.length()){
+					return false;
+				} else {
+					for (int i = 1; i < num1.length(); i++){
+						if (num1[i] < num2[i]){
+							return false;
+						}
+					}
+				}
+			}
+			return true;
+		}
+
+		/*
+			Detects if a value of an int is less than the selected
+			@param:
+				- int a: Second value to be tested
+			@return: if the selected is less than a
+		*/
+		bool operator<(const int& a){
+			return operator<(BigInt(a));
+		}
+
+		/*
+			Detects if a value of a double is less than the selected
+			@param:
+				- double doubA: Second value to be tested
+			@return: if the selected is less than a
+		*/
+		bool operator<(const double& doubA){
+			string num1 = num;
+			string num2 = to_string(doubA);
+			string tNum2 = to_string((int)doubA);
+			BigInt a = BigInt(tNum2);
+			if (negative && !a.negative){
+				return true;
+			} else if (!negative && a.negative){
+				return false;
+			} else if (!negative && !a.negative){
+				if (num1.length() < tNum2.length()){
+					return true;
+				} else if (tNum2.length() < num1.length()){
+					return false;
+				} else {
+					for (int i = 0; i < num1.length(); i++){
+						if (num1[i] > tNum2[i]){
+							return false;
+						}
+					}
+					int ind = num2.find('.', 0);
+					if (stoi(num2.substr(ind + 1)) > 0){
+						return true;
+					}
+				}
+			} else if (negative && a.negative){
+				if (num1.length() < tNum2.length()){
+					return false;
+				} else if (tNum2.length() < num1.length()){
+					return true;
+				} else {
+					for (int i = 1; i < num1.length(); i++){
+						if (num1[i] < num2[i]){
+							return false;
+						}
+					}
+					int ind = num2.find('.', 0);
+					if (stoi(num2.substr(ind + 1)) > 0){
+						return false;
+					}
+				}
+			}
+			return true;
+		}
+		/*
+			Detects if a value of a string is less than the selected
+			@param:
+				- string a: Second value to be tested
+			@return: if the selected is less than a
+		*/
+		bool operator<(const string& a){
+			return operator<(BigInt(a));
+		}
+
+		///// GREATER THAN /////
+
+		/*
+			Detects if a value of a BigInt is greater than the selected
+			@param:
+				-BigInt a: Second value to be tested
+			@return: if the selected is greater than a
+		*/
+		bool operator>(const BigInt& a){
+			return !operator==(a) && !operator<(a);
+		}
+
+		/*
+			Detects if a value of an int is greater than the selected
+			@param:
+				-int a: Second value to be tested
+			@return: if the selected is greater than a
+		*/
+		bool operator>(const int& a){
+			return !operator==(a) && !operator<(a);
+		}
+
+		/*
+			Detects if a value of a double is greater than the selected
+			@param:
+				-double a: Second value to be tested
+			@return: if the selected is greater than a
+		*/
+		bool operator>(const double& a){
+			return !operator==(a) && !operator<(a);
+		}
+
+		/*
+			Detects if a value of a string is greater than the selected
+			@param:
+				-string a: Second value to be tested
+			@return: if the selected is greater than a
+		*/
+		bool operator>(const string& a){
+			return !operator==(a) && !operator<(a);
+		}
+
+		///// LESS THAN OR EQUAL /////
+
+		/*
+			Detects if a value of a BigInt is less than or equal to the selected
+			@param:
+				- BigInt a: Second value to be tested
+			@return : if the selected value is less than or equal to a
+		*/
+		bool operator<=(const BigInt& a){
+			return operator==(a) || operator<(a);
+		}
+
+		/*
+			Detects if a value of an int is less than or equal to the selected
+			@param:
+				- int a: Second value to be tested
+			@return : if the selected value is less than or equal to a
+		*/
+		bool operator<=(const int& a){
+			return operator==(a) || operator<(a);
+		}
+
+		/*
+			Detects if a value of a double is less than or equal to the selected
+			@param:
+				- double a: Second value to be tested
+			@return : if the selected value is less than or equal to a
+		*/
+		bool operator<=(const double& a){
+			return operator==(a) || operator<(a);
+		}
+
+		/*
+			Detects if a value of a string is less than or equal to the selected
+			@param:
+				- string a: Second value to be tested
+			@return : if the selected value is less than or equal to a
+		*/
+		bool operator<=(const string& a){
+			return operator==(a) || operator<(a);
+		}
+
+		///// GREATER THAN OR EQUAL /////
+
+		/*
+			Detects if a value of a BigInt is greater than or equal to the selected
+			@param:
+				- BigInt a: Second value to be tested
+			@return : if the selected value is greater than or equal to a
+		*/
+		bool operator>=(const BigInt& a){
+			return operator==(a) || operator>(a);
+		}
+
+		/*
+			Detects if a value of an int is greater than or equal to the selected
+			@param:
+				- int a: Second value to be tested
+			@return : if the selected value is greater than or equal to a
+		*/
+		bool operator>=(const int& a){
+			return operator==(a) || operator>(a);
+		}
+
+		/*
+			Detects if a value of a double is greater than or equal to the selected
+			@param:
+				- double a: Second value to be tested
+			@return : if the selected value is greater than or equal to a
+		*/
+		bool operator>=(const double& a){
+			return operator==(a) || operator>(a);
+		}
+
+		/*
+			Detects if a value of a string is greater than or equal to the selected
+			@param:
+				- string a: Second value to be tested
+			@return : if the selected value is greater than or equal to a
+		*/
+		bool operator>=(const string& a){
+			return operator==(a) || operator>(a);
+		}
+
+
+		///// Not EQUAL /////
+
+		/*
+			Detects if a value of a BigInt is not equal to the selected
+			@param:
+				- BigInt a: Seconds value to be tested
+			@return: if the selected's value doesn't equal a's value
+		*/
+		bool operator!=(const BigInt& a){
+			return !operator==(a);
+		}
+		/*
+			Detects if a value of a int is not equal to the selected
+			@param:
+				- int a: Seconds value to be tested
+			@return: if the selected's value doesn't equal a's value
+		*/
+		bool operator!=(const int& a){
+			return !operator==(a);
+		}
+
+		/*
+			Detects if a value of a double is not equal to the selected
+			@param:
+				- double a: Seconds value to be tested
+			@return: if the selected's value doesn't equal a's value
+		*/
+		bool operator!=(const double& a){
+			return !operator==(a);
+		}
+
+		/*
+			Detects if a value of a string is not equal to the selected
+			@param:
+				- string a: Seconds value to be tested
+			@return: if the selected's value doesn't equal a's value
+		*/
+		bool operator!=(const string& a){
+			return !operator==(a);
+		}
 };
 
 ostream& operator<<(ostream& os, const BigInt& obj){

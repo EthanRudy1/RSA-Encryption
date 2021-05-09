@@ -12,6 +12,5 @@ using namespace std;
 using namespace chrono;
 
 int main() {
-	BigInt num1 = BigInt(1);
-	BigInt num2 = BigInt(2);
+	cout << (BigInt(3) > "2") << endl;
 }
