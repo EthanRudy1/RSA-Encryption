@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 /*
@@ -41,7 +42,9 @@ class BigInt{
 			num = n;
 			for (int i = 0; i < n.length(); i++){
 				if (int(n[i]) < 48 || int(n[i]) > 57){
-					num = "0";
+					if (n[i] != '-'){
+						num = "0";
+					}
 				}
 			}
 			if (n[0] == '-'){
@@ -83,6 +86,7 @@ class BigInt{
 
 		/*
 			Returns the string value of selected BigInt
+			@return: string value of selected BigInt
 		*/
 		string toString(){
 			return num;
@@ -90,9 +94,18 @@ class BigInt{
 
 		/*
 			Returns the int value of the selected BigInt's length
+			@return: length of the value of selected BigInt
 		*/
 		int length(){
 			return num.length();
+		}
+
+		/*
+			Returns a digit at a specified index
+			@return: int value of a digit at specified index
+		*/
+		int digiAt(int i){
+			return num[i] - 48;
 		}
 
 		//YOU ARE MY FRIEND WOOOOOOOAAAAAAAAAAAAH
@@ -449,7 +462,84 @@ class BigInt{
 		bool operator!=(const string& a){
 			return !operator==(a);
 		}
+
+		///// ADDING /////
+
+		/*
+			Adds the value of two BigInts
+			@param: 
+				- BigInt a: Second value to be added
+			@return: the sum of two BigInts
+		*/
+		BigInt operator+(const BigInt& a){
+			
+			return BigInt(0);
+		}
+
+		/*
+			Adds the value of a BigInts and an Integer
+			@param:
+				- int a: second value to be added
+			@return: the sum of the passed integer and the selected BigInt
+		*/
+		BigInt operator+(const int& a){
+			return operator+(BigInt(a));
+		}
+
+		/*
+			Adds the value of a BigInts and an double
+			@param:
+				- double a: second value to be added
+			@return: the sum of the passed double and the selected BigInt	
+		*/
+		BigInt operator+(const double& a){
+			return operator+(BigInt(a));
+		}
+
+		/*
+			Adds the value of a BigInts and an string
+			@param:
+				- string a: second value to be added
+			@return: the sum of the passed string and the selected BigInt
+		*/
+		BigInt operator+(const string& a){
+			return operator+(BigInt(a));
+		}
+
 };
+
+/*
+	Returns the absolute value of a selected BigInt
+	@param: 
+		- BigInt a: value to be abs'd
+	@return: the absolute value of a 
+*/
+BigInt abs(BigInt a){
+	if (a.toString()[0] == '-'){
+		return BigInt(a.toString().substr(1));
+	}
+	return BigInt(a.toString());
+}
+
+/*
+	Returns the reverse of the selected BigInt
+	@param:
+		- BigInt a: value to be reversed
+	@return: the reversed value of a
+*/
+BigInt rev(BigInt a){
+	string num = a.toString();
+	bool flag = false;
+	if (num[0] == '-'){
+		num = num.substr(1);
+		flag = true;
+	}
+	reverse(num.begin(), num.end());
+	if (flag == true){
+		num = "-" + num;
+	}
+	return BigInt(num);
+}
 
 ostream& operator<<(ostream& os, const BigInt& obj){
 	os << obj.num;
