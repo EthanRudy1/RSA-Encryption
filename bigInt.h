@@ -1,4 +1,4 @@
-/**
+/*
 	BigInt: Creates and allows numerical 
 		operations for the BigInt object
 	@file BigInt.h
@@ -506,6 +506,342 @@ class BigInt{
 			return operator+(BigInt(a));
 		}
 
+		///// Subtracting /////
+
+		/*
+			Subtracts the value of two BigInts
+			@param: 
+				- BigInt a: Second value to be subtracted
+			@return: the difference of two BigInts
+		*/
+		BigInt operator-(const BigInt& a){
+			return BigInt(0);
+		}
+
+		/*
+			Subtracts the value of a BigInts and an Integer
+			@param:
+				- int a: second value to be subtracted
+			@return: the difference of the passed integer and the selected BigInt
+		*/
+		BigInt operator-(const int& a){
+			return operator-(BigInt(a));
+		}
+
+		/*
+			Subtracts the value of a BigInts and an double
+			@param:
+				- double a: second value to be subtracted
+			@return: the difference of the passed double and the selected BigInt	
+		*/
+		BigInt operator-(const double& a){
+			return operator-(BigInt(a));
+		}
+
+		/*
+			Subtracts the value of a BigInts and an string
+			@param:
+				- string a: second value to be subtracted
+			@return: the difference of the passed string and the selected BigInt
+		*/
+		BigInt operator-(const string& a){
+			return operator-(BigInt(a));
+		}
+
+		///// MULTIPLYING /////
+
+		/*
+			Multiplies the value of two BigInts
+			@param: 
+				- BigInt a: Second value to be multiplied
+			@return: the product of two BigInts
+		*/
+		BigInt operator*(const BigInt& a){
+			
+			return BigInt(0);
+		}
+
+		/*
+			Multiplies the value of a BigInts and an Integer
+			@param:
+				- int a: second value to be multiplied
+			@return: the product of the passed integer and the selected BigInt
+		*/
+		BigInt operator*(const int& a){
+			return operator*(BigInt(a));
+		}
+
+		/*
+			Multiplies the value of a BigInts and an double
+			@param:
+				- double a: second value to be multiplied
+			@return: the product of the passed double and the selected BigInt	
+		*/
+		BigInt operator*(const double& a){
+			return operator*(BigInt(a));
+		}
+
+		/*
+			Multiplies the value of a BigInts and an string
+			@param:
+				- string a: second value to be multiplied
+			@return: the product of the passed string and the selected BigInt
+		*/
+		BigInt operator*(const string& a){
+			return operator*(BigInt(a));
+		}
+
+		///// DIVIDING /////
+
+		/*
+			Divides the value of two BigInts
+			@param: 
+				- BigInt a: divisor
+			@return: the quotient of two BigInts
+		*/
+		BigInt operator/(const BigInt& a){
+			
+			return BigInt(0);
+		}
+
+		/*
+			Divides the value of a BigInts and an Integer
+			@param:
+				- int a: divisor
+			@return: the quotient of the passed integer and the selected BigInt
+		*/
+		BigInt operator/(const int& a){
+			return operator/(BigInt(a));
+		}
+
+		/*
+			Divides the value of a BigInts and an double
+			@param:
+				- double a: divisor
+			@return: the quotient of the passed double and the selected BigInt	
+		*/
+		BigInt operator/(const double& a){
+			return operator/(BigInt(a));
+		}
+
+		/*
+			Divides the value of a BigInts and an string
+			@param:
+				- string a: divisor
+			@return: the quotient of the passed string and the selected BigInt
+		*/
+		BigInt operator/(const string& a){
+			return operator/(BigInt(a));
+		}
+
+		///// MODULUS /////
+
+		/*
+			Finds the modulus of two BigInts
+			@param: 
+				- BigInt a: divisor
+			@return: the mod of two BigInts
+		*/
+		BigInt operator%(const BigInt& a){
+			
+			return BigInt(0);
+		}
+
+		/*
+			Finds the modulus of a BigInts and an Integer
+			@param:
+				- int a: divisor
+			@return: the mod of the passed integer and the selected BigInt
+		*/
+		BigInt operator%(const int& a){
+			return operator%(BigInt(a));
+		}
+
+		/*
+			Finds the modulus of a BigInts and an double
+			@param:
+				- double a: divisor
+			@return: the mod of the passed double and the selected BigInt	
+		*/
+		BigInt operator%(const double& a){
+			return operator%(BigInt(a));
+		}
+
+		/*
+			Finds the modulus of a BigInts and an string
+			@param:
+				- string a: divisor
+			@return: the mod of the passed string and the selected BigInt
+		*/
+		BigInt operator%(const string& a){
+			return operator%(BigInt(a));
+		}
+
+		///// ADDING AND SETTING /////
+
+		/*
+			Finds and sets the sum of two BigInts to the first
+			@param:
+				- BigInt a: number to be added
+		*/
+		void operator+=(const BigInt& a){
+			cout << "Test";
+		}
+
+		/*
+			Finds and sets the sum of Bigint and an int to the first
+			@param:
+				- int a: number to be added
+		*/
+		void operator+=(const int& a){
+			operator+=(BigInt(a));
+		}
+
+		/*
+			Finds and sets the sum of Bigint and a double to the first
+			@param:
+				- double a: number to be added
+		*/
+		void operator+=(const double& a){
+			operator+=(BigInt(a));
+		}
+
+		/*
+			Finds and sets the sum of Bigint and a string to the first
+			@param:
+				- string a: number to be added
+		*/
+		void operator+=(const string& a){
+			operator+=(BigInt(a));
+		}
+
+		///// SUBTRACTING AND SETTING /////
+
+		/*
+			Finds and sets the difference of two BigInts to the first
+			@param:
+				- BigInt a: number to be subtracted
+		*/
+		void operator-=(const BigInt& a){
+			cout << "Test";
+		}
+
+		/*
+			Finds and sets the difference of Bigint and an int to the first
+			@param:
+				- int a: number to be subtracted
+		*/
+		void operator-=(const int& a){
+			operator-=(BigInt(a));
+		}
+
+		/*
+			Finds and sets the difference of Bigint and a double to the first
+			@param:
+				- double a: number to be subtracted
+		*/
+		void operator-=(const double& a){
+			operator-=(BigInt(a));
+		}
+
+		/*
+			Finds and sets the difference of Bigint and a string to the first
+			@param:
+				- string a: number to be subtracted
+		*/
+		void operator-=(const string& a){
+			operator-=(BigInt(a));
+		}
+
+		///// MULTIPLYING AND SETTING /////
+
+		/*
+			Finds and sets the product of two BigInts to the first
+			@param:
+				- BigInt a: number to be multiplied
+		*/
+		void operator*=(const BigInt& a){
+			cout << "Test";
+		}
+
+		/*
+			Finds and sets the product of Bigint and an int to the first
+			@param:
+				- int a: number to be multiplied
+		*/
+		void operator*=(const int& a){
+			operator*=(BigInt(a));
+		}
+
+		/*
+			Finds and sets the product of Bigint and a double to the first
+			@param:
+				- double a: number to be multiplied
+		*/
+		void operator*=(const double& a){
+			operator*=(BigInt(a));
+		}
+
+		/*
+			Finds and sets the product of Bigint and a string to the first
+			@param:
+				- string a: number to be multiplied
+		*/
+		void operator*=(const string& a){
+			operator*=(BigInt(a));
+		}
+
+		///// DIVIDING AND SETTING /////
+
+		/*
+			Finds and sets the quotient of two BigInts to the first
+			@param:
+				- BigInt a: divisor
+		*/
+		void operator/=(const BigInt& a){
+			cout << "Test";
+		}
+
+		/*
+			Finds and sets the quotient of Bigint and an int to the first
+			@param:
+				- int a: divisor
+		*/
+		void operator/=(const int& a){
+			operator/=(BigInt(a));
+		}
+
+		/*
+			Finds and sets the quotient of Bigint and a double to the first
+			@param:
+				- double a: divisor
+		*/
+		void operator/=(const double& a){
+			operator/=(BigInt(a));
+		}
+
+		/*
+			Finds and sets the quotient of Bigint and a string to the first
+			@param:
+				- string a: divisor
+		*/
+		void operator/=(const string& a){
+			operator/=(BigInt(a));
+		}
+
+		/*
+			Increments the selected BigInt
+		*/
+		void operator++(){
+
+		}
+
+		/*
+			Decrements the selected BigInt
+		*/
+		void operator--(){
+			
+		}
 };
 
 /*
@@ -539,6 +875,27 @@ BigInt rev(BigInt a){
 		num = "-" + num;
 	}
 	return BigInt(num);
+}
+
+/*
+	Calculates the power of passed statement
+	@param: 
+		- BigInt a: base
+		- int b: exponent
+	@return: The resulting BigInt
+*/
+BigInt pow(BigInt a, int b){
+	return BigInt(0);
+}
+
+/*
+	Caluclates the square root of the passed BigInt
+	@param:
+		- BigInt a: base
+	@return: The resulting square root in BigInt form
+*/
+BigInt sqrt(BigInt a){
+	return BigInt(0);
 }
 
 ostream& operator<<(ostream& os, const BigInt& obj){
