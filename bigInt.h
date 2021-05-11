@@ -19,6 +19,8 @@ class BigInt{
 		string num;
 		bool negative = false;
 	public:
+
+		#pragma region Constructors
 		// Default constructor
 		BigInt(){
 			num = "0";
@@ -51,6 +53,8 @@ class BigInt{
 				negative = true;
 			}
 		}
+		#pragma endregion Constructors
+		#pragma region Setter_Methods
 		/*
 			Sets the selected big into the the value of n
 		*/
@@ -83,7 +87,8 @@ class BigInt{
 				negative = true;
 			}
 		}
-
+		#pragma endregion Setter_Methods
+		#pragma region Helpers
 		/*
 			Returns the string value of selected BigInt
 			@return: string value of selected BigInt
@@ -107,10 +112,12 @@ class BigInt{
 		int digiAt(int i){
 			return num[i] - 48;
 		}
-
+		#pragma endregion Helpers
+		
 		//YOU ARE MY FRIEND WOOOOOOOAAAAAAAAAAAAH
 		friend ostream& operator<< (ostream&, const BigInt&);
 
+		#pragma region Equals
 		///// EQUAL /////
 
 		/*
@@ -178,7 +185,8 @@ class BigInt{
 		bool operator==(const string& a){
 			return operator==(BigInt(a));
 		}
-		
+		#pragma endregion Equals
+		#pragma region Less_Than
 		///// LESS THAN /////
 
 		/*
@@ -294,7 +302,8 @@ class BigInt{
 		bool operator<(const string& a){
 			return operator<(BigInt(a));
 		}
-
+		#pragma endregion Less_Than
+		#pragma region Greater_Than
 		///// GREATER THAN /////
 
 		/*
@@ -336,7 +345,8 @@ class BigInt{
 		bool operator>(const string& a){
 			return !operator==(a) && !operator<(a);
 		}
-
+		#pragma endregion Greater_Than
+		#pragma region Less_Than_or_Equal_to
 		///// LESS THAN OR EQUAL /////
 
 		/*
@@ -378,7 +388,8 @@ class BigInt{
 		bool operator<=(const string& a){
 			return operator==(a) || operator<(a);
 		}
-
+		#pragma endregion Less_Than_or_Equal_to
+		#pragma region Greater_Than_or_Equal_to
 		///// GREATER THAN OR EQUAL /////
 
 		/*
@@ -420,8 +431,8 @@ class BigInt{
 		bool operator>=(const string& a){
 			return operator==(a) || operator>(a);
 		}
-
-
+		#pragma endregion Greater_Than_or_Equal_to
+		#pragma region Not_Equal
 		///// Not EQUAL /////
 
 		/*
@@ -462,7 +473,8 @@ class BigInt{
 		bool operator!=(const string& a){
 			return !operator==(a);
 		}
-
+		#pragma endregion Not_Equal
+		#pragma region Adding
 		///// ADDING /////
 
 		/*
@@ -505,7 +517,8 @@ class BigInt{
 		BigInt operator+(const string& a){
 			return operator+(BigInt(a));
 		}
-
+		#pragma endregion Adding
+		#pragma region Subtracting
 		///// Subtracting /////
 
 		/*
@@ -547,7 +560,8 @@ class BigInt{
 		BigInt operator-(const string& a){
 			return operator-(BigInt(a));
 		}
-
+		#pragma endregion Subtracting
+		#pragma region Multiplying
 		///// MULTIPLYING /////
 
 		/*
@@ -590,7 +604,8 @@ class BigInt{
 		BigInt operator*(const string& a){
 			return operator*(BigInt(a));
 		}
-
+		#pragma endregion Multiplying
+		#pragma region Dividing
 		///// DIVIDING /////
 
 		/*
@@ -633,7 +648,8 @@ class BigInt{
 		BigInt operator/(const string& a){
 			return operator/(BigInt(a));
 		}
-
+		#pragma endregion Dividing
+		#pragma region Modulus
 		///// MODULUS /////
 
 		/*
@@ -676,7 +692,8 @@ class BigInt{
 		BigInt operator%(const string& a){
 			return operator%(BigInt(a));
 		}
-
+		#pragma endregion Modulus
+		#pragma region Plus_Equals
 		///// ADDING AND SETTING /////
 
 		/*
@@ -714,7 +731,8 @@ class BigInt{
 		void operator+=(const string& a){
 			operator+=(BigInt(a));
 		}
-
+		#pragma endregion Plus_Equals
+		#pragma region Minus_Equals
 		///// SUBTRACTING AND SETTING /////
 
 		/*
@@ -752,7 +770,8 @@ class BigInt{
 		void operator-=(const string& a){
 			operator-=(BigInt(a));
 		}
-
+		#pragma endregion Minus_Equals
+		#pragma region Times_Equals
 		///// MULTIPLYING AND SETTING /////
 
 		/*
@@ -790,7 +809,8 @@ class BigInt{
 		void operator*=(const string& a){
 			operator*=(BigInt(a));
 		}
-
+		#pragma endregion Times_Equals
+		#pragma region Div_Equals
 		///// DIVIDING AND SETTING /////
 
 		/*
@@ -828,7 +848,8 @@ class BigInt{
 		void operator/=(const string& a){
 			operator/=(BigInt(a));
 		}
-
+		#pragma endregion Div_Equals
+		#pragma region Incrementors
 		/*
 			Increments the selected BigInt
 		*/
@@ -842,8 +863,9 @@ class BigInt{
 		void operator--(){
 			
 		}
+		#pragma endregion Incrementors
 };
-
+#pragma region Extras
 /*
 	Returns the absolute value of a selected BigInt
 	@param: 
@@ -876,7 +898,8 @@ BigInt rev(BigInt a){
 	}
 	return BigInt(num);
 }
-
+#pragma endregion Extras
+#pragma region Extra_Math
 /*
 	Calculates the power of passed statement
 	@param: 
@@ -889,7 +912,7 @@ BigInt pow(BigInt a, int b){
 }
 
 /*
-	Caluclates the square root of the passed BigInt
+	Calculates the square root of the passed BigInt
 	@param:
 		- BigInt a: base
 	@return: The resulting square root in BigInt form
@@ -897,7 +920,7 @@ BigInt pow(BigInt a, int b){
 BigInt sqrt(BigInt a){
 	return BigInt(0);
 }
-
+#pragma endregion Extra_Math
 ostream& operator<<(ostream& os, const BigInt& obj){
 	os << obj.num;
 	return os;
